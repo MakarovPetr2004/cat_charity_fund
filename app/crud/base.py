@@ -1,4 +1,5 @@
-from typing import Optional
+from typing import Optional, Any
+
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -71,3 +72,14 @@ class CRUDBase:
         await session.commit()
         return db_obj
 
+    async def get_all_by_attribute(
+            self,
+            attribute_name: str,
+            attribute_value: Any,
+            session: AsyncSession
+    ):
+        query = select(self.model).filter(
+            getattr(self.model, attribute_name) == attribute_value
+        )
+        result = await session.execute(query)
+        return result.scalars().all()
