@@ -4,6 +4,8 @@ from typing import Optional
 from pydantic import BaseModel
 from pydantic.types import PositiveInt
 
+from app.constants import INVESTED_AM_DEF
+
 
 class DonationSchema(BaseModel):
     comment: Optional[str]
@@ -24,6 +26,6 @@ class DonationDB(DonationCreate):
 
 class DonationSuperUserDB(DonationDB):
     user_id: int
-    invested_amount: Optional[int] = 0
+    invested_amount: Optional[int] = INVESTED_AM_DEF
     close_date: Optional[datetime]
     fully_invested: Optional[bool] = False

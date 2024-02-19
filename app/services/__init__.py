@@ -1,1 +1,1 @@
-from .invest import invest_funds # noqa
+from .invest import invest_funds  # noqa
